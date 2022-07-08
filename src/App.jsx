@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import { ToastContainer, toast } from 'react-toastify'
 import apiRequest from './services/api'
-import SearchBar from './components/SearchBar/SearchBar'
-import ImageGallery from './components/ImageGallery/ImageGallery'
-import Button from './components/Button/Button'
-import Loader from './components/Loader/Loader'
+import SearchBar from './components/SearchBar'
+import ImageGallery from './components/ImageGallery'
+import Button from './components/Button'
+import Loader from './components/Loader'
 import GlobalStyle from './styles'
+import { AppContainer } from './App.styled'
 
 const FIRST_PAGE = 1
 const PER_PAGE = 12
@@ -108,10 +108,3 @@ export default class App extends Component {
     )
   }
 }
-
-const AppContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
-  padding-bottom: 24px;
-`
