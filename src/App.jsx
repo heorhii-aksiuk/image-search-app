@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import apiRequest from './services/api'
 import SearchBar from './components/SearchBar'
@@ -15,96 +15,79 @@ const MESSAGE = {
   NOTHING_FOUND: 'Nothing found on your request :(',
 }
 
-export default class App extends Component {
-  state = {
-    query: null,
-    page: FIRST_PAGE,
-    data: [],
-    loading: false,
-  }
+export default function App() {
+  const [query, setQuery] = useState(null)
+  const [page, setPage] = useState(FIRST_PAGE)
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+  let totalPages = useRef(0)
 
-  totalPages = 0
-
-  async componentDidUpdate(_, prevState) {
-    const { query, page } = this.state
-    let pageRequest
-    const newQuery = query !== prevState.query
-    const nextPage = page > prevState.page
-
-    if (!newQuery && !nextPage) return
-    if (newQuery) {
-      pageRequest = FIRST_PAGE
+  useEffect(() => {
+    if (!query) {
+      return
     }
-    if (nextPage) {
-      pageRequest = page
+    setPage(FIRST_PAGE)
+  }, [query])
+
+  useEffect(() => {
+    if (!query) {
+      return
     }
 
-    this.setState({ loading: true })
+    setLoading(true)
+    ;(async function () {
+      try {
+        const response = await apiRequest(query, PER_PAGE, page)
 
-    try {
-      const response = await apiRequest(query, PER_PAGE, pageRequest)
+        if (response.status !== 200) {
+          throw new Error(MESSAGE.ERROR)
+        }
 
-      if (response.status !== 200) {
-        throw new Error(MESSAGE.ERROR)
+        const data = response?.data?.hits
+
+        if (data?.length < 1) {
+          toast.info(MESSAGE.NOTHING_FOUND)
+          // TODO: problems with repeat toast
+          console.log(MESSAGE.NOTHING_FOUND)
+        }
+
+        if (page > FIRST_PAGE) {
+          setData((prevData) => [...prevData, ...data])
+        } else {
+          setData(data)
+          window.scrollTo(0, 0)
+
+          const totalHits = response?.data?.totalHits
+          totalPages.current = Math.ceil(totalHits / PER_PAGE)
+        }
+      } catch (error) {
+        toast.error(error.message)
+        console.error(error.message)
+      } finally {
+        setLoading(false)
       }
+    })()
+  }, [page, query])
 
-      const data = response?.data?.hits
+  const loadMore = () => setPage((page) => page + 1)
 
-      if (data?.length < 1) {
-        toast.info(MESSAGE.NOTHING_FOUND)
-      }
+  const hasData = data?.length > 0
+  const hasNextPage = totalPages.current > page
 
-      const totalHits = response?.data?.totalHits
-      this.totalPages = Math.ceil(totalHits / PER_PAGE)
-
-      if (newQuery) {
-        this.setState({ page: FIRST_PAGE, data })
-        window.scrollTo(0, 0)
-      }
-
-      if (nextPage) {
-        this.setState((state) => ({
-          data: [...state.data, ...data],
-        }))
-      }
-    } catch (error) {
-      toast.error(error.message)
-      console.error(error.message)
-    } finally {
-      this.setState({ loading: false })
-    }
-  }
-
-  setQuery = (query) => {
-    this.setState({ query })
-  }
-
-  loadMore = () => {
-    this.setState((state) => ({
-      page: state.page + 1,
-    }))
-  }
-
-  render() {
-    const { loading, data, page } = this.state
-    const hasData = data?.length > 0
-    const hasNextPage = this.totalPages > page
-
-    return (
-      <>
-        <GlobalStyle />
-        <AppContainer>
-          <SearchBar onSubmit={this.setQuery} />
-          {hasData && <ImageGallery items={data} />}
-          {hasNextPage && (
-            <Button onClick={this.loadMore} disabled={loading}>
-              {loading ? 'Loading...' : 'Load more'}
-            </Button>
-          )}
-        </AppContainer>
-        {loading && <Loader />}
-        <ToastContainer autoClose={2500} limit={1} />
-      </>
-    )
-  }
+  return (
+    <>
+      <GlobalStyle />
+      <AppContainer>
+        <SearchBar onSubmit={(query) => setQuery(query)} />
+        {hasData && <ImageGallery items={data} />}
+        {hasNextPage && (
+          <Button onClick={loadMore} disabled={loading}>
+            {loading ? 'Loading...' : 'Load more'}
+          </Button>
+        )}
+      </AppContainer>
+      {loading && <Loader />}
+      <ToastContainer autoClose={2500} limit={1} />
+    </>
+  )
 }

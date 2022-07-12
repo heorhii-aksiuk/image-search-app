@@ -37,6 +37,11 @@ a {
 
 body {
   background-color: #cccccc;
-}`
+}
+
+html {
+
+}
+`
 
 export default GlobalStyle
