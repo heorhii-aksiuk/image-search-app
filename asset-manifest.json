@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/image-search-app/static/css/main.6237bdd5.css",
+    "main.js": "/image-search-app/static/js/main.5d2e2be6.js",
+    "index.html": "/image-search-app/index.html",
+    "static/media/search.svg": "/image-search-app/static/media/search.ece09c9d9d54e16e92b6d2dd46676c6e.svg",
+    "main.6237bdd5.css.map": "/image-search-app/static/css/main.6237bdd5.css.map",
+    "main.5d2e2be6.js.map": "/image-search-app/static/js/main.5d2e2be6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6237bdd5.css",
+    "static/js/main.5d2e2be6.js"
+  ]
+}
