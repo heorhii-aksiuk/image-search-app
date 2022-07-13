@@ -1,6 +1,6 @@
-import styled from 'styled-components'
 import { createPortal } from 'react-dom'
 import { Oval } from 'react-loader-spinner'
+import { Overlay } from './Loader.styled'
 
 const modalRoot = document.getElementById('modal-root')
 
@@ -19,17 +19,3 @@ export default function Loader() {
     modalRoot,
   )
 }
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1300;
-  cursor: wait;
-`

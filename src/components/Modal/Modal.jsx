@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { Overlay, Box } from './Modal.styled'
 
 const CLOSE_INFO = {
   OVERLAY: 'Click to close',
@@ -9,56 +9,35 @@ const CLOSE_INFO = {
 
 const modalRoot = document.getElementById('modal-root')
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown)
+export default function Modal({ onClose, children }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
     document.body.style.overflow = 'hidden'
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown)
-    document.body.style.overflow = 'unset'
-  }
-
-  handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      this.props.onClose()
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'unset'
     }
-  }
+  }, [onClose])
 
-  handleClick = (event) => {
+  const handleClick = (event) => {
     if (event.target === event.currentTarget) {
-      this.props.onClose()
+      onClose()
     }
   }
 
-  render() {
-    return createPortal(
-      <Overlay onClick={this.handleClick} title={CLOSE_INFO.OVERLAY}>
-        <Box onDoubleClick={this.props.onClose} title={CLOSE_INFO.BOX}>
-          {this.props.children}
-        </Box>
-      </Overlay>,
-      modalRoot,
-    )
-  }
+  return createPortal(
+    <Overlay onClick={handleClick} title={CLOSE_INFO.OVERLAY}>
+      <Box onDoubleClick={onClose} title={CLOSE_INFO.BOX}>
+        {children}
+      </Box>
+    </Overlay>,
+    modalRoot,
+  )
 }
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1200;
-  cursor: pointer;
-`
-const Box = styled.div`
-  max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
-  cursor: auto;
-`
