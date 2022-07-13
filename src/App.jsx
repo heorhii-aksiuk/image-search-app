@@ -23,16 +23,12 @@ export default function App() {
   let totalPages = useRef(0)
 
   useEffect(() => {
-    if (!query) {
-      return
-    }
+    if (!query) return
     setPage(FIRST_PAGE)
   }, [query])
 
   useEffect(() => {
-    if (!query) {
-      return
-    }
+    if (!query) return
 
     setLoading(true)
     ;(async function () {
