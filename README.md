@@ -1,2 +1,2 @@
 # Image Search App
-✔ Portfolio project. React
+Portfolio project. React
