@@ -36,11 +36,10 @@ export default function App() {
     (async function () {
       try {
         const response = await apiRequest(query, PER_PAGE, page);
-
         const data = response?.data?.hits;
 
         if (data?.length < 1 && !toast.isActive(toastID.current)) {
-          //Prevent toast duplicate (from docs) when changing query and page, but nothing was found
+          //Prevent toast duplicate(from docs) when changing query and page, but nothing was found
           toastID.current = toast.info(MESSAGE.NOTHING_FOUND);
         }
 

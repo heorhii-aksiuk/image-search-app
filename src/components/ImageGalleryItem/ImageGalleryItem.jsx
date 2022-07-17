@@ -1,11 +1,11 @@
-import { useToggle } from '../../hooks'
-import Modal from '../Modal'
-import { Item, Image } from './ImageGalleryItem.styled'
+import { useToggle } from '../../hooks';
+import Modal from '../Modal';
+import { Item, Image } from './ImageGalleryItem.styled';
 
 export default function ImageGalleryItem({
   item: { webformatURL, largeImageURL, tags },
 }) {
-  const [showModal, toggleModal] = useToggle()
+  const [showModal, toggleModal] = useToggle();
 
   return (
     <>
@@ -18,5 +18,5 @@ export default function ImageGalleryItem({
         </Modal>
       )}
     </>
-  )
+  );
 }

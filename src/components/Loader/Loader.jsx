@@ -1,8 +1,8 @@
-import { createPortal } from 'react-dom'
-import { Oval } from 'react-loader-spinner'
-import { Overlay } from './Loader.styled'
+import { createPortal } from 'react-dom';
+import { Oval } from 'react-loader-spinner';
+import { Overlay } from './Loader.styled';
 
-const modalRoot = document.getElementById('modal-root')
+const modalRoot = document.getElementById('modal-root');
 
 export default function Loader() {
   return createPortal(
@@ -17,5 +17,5 @@ export default function Loader() {
       />
     </Overlay>,
     modalRoot,
-  )
+  );
 }

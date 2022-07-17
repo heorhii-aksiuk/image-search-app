@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Overlay = styled.div`
   position: fixed;
@@ -12,4 +12,4 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 1300;
   cursor: wait;
-`
+`;

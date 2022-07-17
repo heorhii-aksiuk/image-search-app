@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.header`
   top: 0;
@@ -17,7 +17,7 @@ export const Header = styled.header`
   background-color: #3f51b5;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-`
+`;
 
 export const Form = styled.form`
   position: relative;
@@ -28,7 +28,7 @@ export const Form = styled.form`
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
-`
+`;
 
 export const Button = styled.button`
   display: inline-block;
@@ -43,7 +43,7 @@ export const Button = styled.button`
   :hover {
     opacity: 1;
   }
-`
+`;
 
 export const Input = styled.input`
   display: inline-block;
@@ -59,4 +59,4 @@ export const Input = styled.input`
     font: inherit;
     font-size: 18px;
   }
-`
+`;

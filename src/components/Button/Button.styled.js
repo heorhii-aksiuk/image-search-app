@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Button = styled.button`
   display: inline-block;
@@ -26,6 +26,6 @@ const Button = styled.button`
   :active {
     background-color: #1c2769;
   }
-`
+`;
 
-export default Button
+export default Button;

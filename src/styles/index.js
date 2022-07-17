@@ -1,9 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
-import 'sanitize.css'
-import 'sanitize.css/forms.css'
-import 'sanitize.css/typography.css'
-import 'react-toastify/dist/ReactToastify.min.css'
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import { createGlobalStyle } from 'styled-components';
+import 'sanitize.css';
+import 'sanitize.css/forms.css';
+import 'sanitize.css/typography.css';
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 const GlobalStyle = createGlobalStyle`
 h1,
@@ -42,6 +42,6 @@ body {
 html {
 
 }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
