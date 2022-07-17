@@ -36,7 +36,7 @@ a {
 }
 
 body {
-  background-color: #cccccc;
+  background-color: ${(props) => props.theme.mainBackgroundColor};
 }
 
 html {

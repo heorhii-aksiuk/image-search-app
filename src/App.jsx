@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { ThemeProvider } from 'styled-components';
 import { apiRequest } from './services';
 import SearchBar from './components/SearchBar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
 import GlobalStyle from './styles';
+import { main, dark } from './theme';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
@@ -68,18 +70,20 @@ export default function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <AppContainer>
-        <SearchBar onSubmit={(query) => setQuery(query)} />
-        {hasData && <ImageGallery items={data} />}
-        {hasNextPage && (
-          <Button onClick={loadMore} disabled={loading}>
-            {loading ? 'Loading...' : 'Load more'}
-          </Button>
-        )}
-      </AppContainer>
-      {loading && <Loader />}
-      <ToastContainer autoClose={2500} limit={1} />
+      <ThemeProvider theme={dark}>
+        <GlobalStyle />
+        <AppContainer>
+          <SearchBar onSubmit={(query) => setQuery(query)} />
+          {hasData && <ImageGallery items={data} />}
+          {hasNextPage && (
+            <Button onClick={loadMore} disabled={loading}>
+              {loading ? 'Loading...' : 'Load more'}
+            </Button>
+          )}
+        </AppContainer>
+        {loading && <Loader />}
+        <ToastContainer autoClose={2500} limit={1} />
+      </ThemeProvider>
     </>
   );
 }
