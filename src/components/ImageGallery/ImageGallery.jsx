@@ -1,5 +1,5 @@
-import ImageGalleryItem from '../ImageGalleryItem'
-import { List } from './ImageGallery.styled'
+import ImageGalleryItem from '../ImageGalleryItem';
+import { List } from './ImageGallery.styled';
 
 export default function ImageGallery({ items }) {
   return (
@@ -8,5 +8,5 @@ export default function ImageGallery({ items }) {
         <ImageGalleryItem key={item.id} item={item} />
       ))}
     </List>
-  )
+  );
 }

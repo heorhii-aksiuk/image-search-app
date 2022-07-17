@@ -1,74 +1,70 @@
-import { useEffect, useRef, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import apiRequest from './services/api'
-import SearchBar from './components/SearchBar'
-import ImageGallery from './components/ImageGallery'
-import Button from './components/Button'
-import Loader from './components/Loader'
-import GlobalStyle from './styles'
-import { AppContainer } from './App.styled'
+import { useEffect, useRef, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { apiRequest } from './services';
+import SearchBar from './components/SearchBar';
+import ImageGallery from './components/ImageGallery';
+import Button from './components/Button';
+import Loader from './components/Loader';
+import GlobalStyle from './styles';
+import { AppContainer } from './App.styled';
 
-const FIRST_PAGE = 1
-const PER_PAGE = 12
+const FIRST_PAGE = 1;
+const PER_PAGE = 12;
 const MESSAGE = {
   ERROR: 'Oops, something went wrong :( Please, reset page or try later',
   NOTHING_FOUND: 'Nothing found on your request :(',
-}
+};
 
 export default function App() {
-  const [query, setQuery] = useState(null)
-  const [page, setPage] = useState(FIRST_PAGE)
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
-  let totalPages = useRef(0)
+  const [query, setQuery] = useState(null);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(FIRST_PAGE);
+  const [loading, setLoading] = useState(false);
+  const totalPages = useRef(0);
+  const toastID = useRef(null);
 
   useEffect(() => {
-    if (!query) return
-    setPage(FIRST_PAGE)
-  }, [query])
+    if (!query) return;
+    setPage(FIRST_PAGE);
+  }, [query]);
 
   useEffect(() => {
-    if (!query) return
+    if (!query) return;
 
-    setLoading(true)
-    ;(async function () {
+    setLoading(true);
+
+    (async function () {
       try {
-        const response = await apiRequest(query, PER_PAGE, page)
+        const response = await apiRequest(query, PER_PAGE, page);
+        const data = response?.data?.hits;
 
-        if (response.status !== 200) {
-          throw new Error(MESSAGE.ERROR)
-        }
-
-        const data = response?.data?.hits
-
-        if (data?.length < 1) {
-          toast.info(MESSAGE.NOTHING_FOUND)
-          // TODO: problems with repeat toast
-          console.log(MESSAGE.NOTHING_FOUND)
+        if (data?.length < 1 && !toast.isActive(toastID.current)) {
+          //Prevent toast duplicate(from docs) when changing query and page, but nothing was found
+          toastID.current = toast.info(MESSAGE.NOTHING_FOUND);
         }
 
         if (page > FIRST_PAGE) {
-          setData((prevData) => [...prevData, ...data])
+          setData((prevData) => [...prevData, ...data]);
         } else {
-          setData(data)
-          window.scrollTo(0, 0)
+          setData(data);
+          window.scrollTo(0, 0);
 
-          const totalHits = response?.data?.totalHits
-          totalPages.current = Math.ceil(totalHits / PER_PAGE)
+          const totalHits = response?.data?.totalHits;
+          totalPages.current = Math.ceil(totalHits / PER_PAGE);
         }
       } catch (error) {
-        toast.error(error.message)
-        console.error(error.message)
+        toast.error(MESSAGE.ERROR);
+        console.error(error.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    })()
-  }, [page, query])
+    })();
+  }, [page, query]);
 
-  const loadMore = () => setPage((page) => page + 1)
+  const loadMore = () => setPage((page) => page + 1);
 
-  const hasData = data?.length > 0
-  const hasNextPage = totalPages.current > page
+  const hasData = data?.length > 0;
+  const hasNextPage = totalPages.current > page;
 
   return (
     <>
@@ -85,5 +81,5 @@ export default function App() {
       {loading && <Loader />}
       <ToastContainer autoClose={2500} limit={1} />
     </>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 export default function useToggle(initial = false) {
-  const [state, setState] = useState(initial)
+  const [state, setState] = useState(initial);
 
-  const toggle = () => setState((state) => !state)
+  const toggle = () => setState((state) => !state);
 
-  return [state, toggle]
+  return [state, toggle];
 }
