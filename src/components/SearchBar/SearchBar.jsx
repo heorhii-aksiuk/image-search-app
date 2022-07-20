@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { ReactComponent as SearchIcon } from '../../icons/search.svg';
+import ThemeSwitch from '../ThemeSwitch';
 import { Header, Form, Button, Input } from './SearchBar.styled';
 
 const EMPTY_STRING = '';
@@ -40,6 +41,7 @@ export default function SearchBar({ onSubmit }) {
           placeholder={INPUT.PLACEHOLDER}
         />
       </Form>
+      <ThemeSwitch />
     </Header>
   );
 }

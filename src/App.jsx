@@ -7,7 +7,7 @@ import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
 import GlobalStyle from './styles';
-import { main, dark } from './theme';
+import { dark } from './theme';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
