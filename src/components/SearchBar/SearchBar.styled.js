@@ -2,18 +2,15 @@ import styled from 'styled-components';
 import { ReactComponent as Search } from '../../icons/search.svg';
 
 export const Header = styled.header`
+  position: sticky;
   top: 0;
   left: 0;
-  position: sticky;
-  z-index: 1100;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 12px 20px;
   min-height: 64px;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  z-index: 1100;
   color: ${(props) => props.theme.mainTextColor};
   background-color: ${(props) => props.theme.accentColor};
   box-shadow: ${(props) => props.theme.appBarBoxShadow};
@@ -28,13 +25,14 @@ export const Form = styled.form`
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
   border-radius: 3px;
   overflow: hidden;
+  transition: ${(props) => props.theme.transition};
 `;
 
 export const Button = styled.button`
   display: inline-block;
   width: 48px;
   height: 48px;
-  border: 0;
+  border: none;
   opacity: 0.6;
   transition: ${(props) => props.theme.transition};
   cursor: pointer;
@@ -48,7 +46,6 @@ export const Button = styled.button`
 export const Input = styled.input`
   display: inline-block;
   width: 100%;
-  font: inherit;
   font-size: 20px;
   border: none;
   outline: none;
@@ -56,7 +53,6 @@ export const Input = styled.input`
   padding-right: 4px;
 
   ::placeholder {
-    font: inherit;
     font-size: 18px;
   }
 `;
@@ -65,4 +61,5 @@ export const SearchIcon = styled(Search)`
   width: 26px;
   height: 26px;
   color: ${(props) => props.theme.mainTextColor};
+  transition: ${(props) => props.theme.transition};
 `;

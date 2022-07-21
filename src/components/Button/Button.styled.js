@@ -5,14 +5,16 @@ const Button = styled.button`
   margin: 0 auto;
   padding: 8px 16px;
   min-width: 180px;
-  border-radius: 2px;
-  background-color: ${(props) => props.theme.accentColor};
-  text-align: center;
-  color: ${(props) => props.theme.secondaryTextColor};
-  border: none;
+
   font-size: 18px;
   line-height: 24px;
   font-weight: 500;
+  text-align: center;
+  color: ${(props) => props.theme.secondaryTextColor};
+  
+  background-color: ${(props) => props.theme.accentColor};
+  border: none;
+  border-radius: 2px;
   box-shadow: ${(props) => props.theme.buttonBoxShadow};
   cursor: pointer;
   transition: ${(props) => props.theme.transition};

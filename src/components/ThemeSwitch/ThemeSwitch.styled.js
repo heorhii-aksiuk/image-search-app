@@ -35,10 +35,12 @@ export const SunIcon = styled(Sun)`
   height: 100%;
   width: 100%;
   color: ${(props) => props.theme.secondaryBackgroundColor};
+  transition: ${(props) => props.theme.transition};
 `;
 
 export const MoonIcon = styled(Moon)`
   height: 100%;
   width: 100%;
   color: ${(props) => props.theme.secondaryBackgroundColor};
+  transition: ${(props) => props.theme.transition};
 `;

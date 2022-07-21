@@ -33,6 +33,7 @@ export default function App() {
 
   useEffect(() => {
     if (!query) return;
+    // TODO: fix bug with render not first page when we have a new query
 
     setLoading(true);
 
