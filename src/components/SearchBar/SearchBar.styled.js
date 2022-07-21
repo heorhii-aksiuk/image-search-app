@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ReactComponent as Search } from '../../icons/search.svg';
 
 export const Header = styled.header`
   top: 0;
@@ -58,4 +59,10 @@ export const Input = styled.input`
     font: inherit;
     font-size: 18px;
   }
+`;
+
+export const SearchIcon = styled(Search)`
+  width: 26px;
+  height: 26px;
+  color: ${(props) => props.theme.mainTextColor};
 `;

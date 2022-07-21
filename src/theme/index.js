@@ -1,4 +1,4 @@
-const basic = {
+const common = {
   accentColor: '#3f51b5',
   buttonHoverColor: '#303f9f',
   buttonActiveColor: '#1c2769',
@@ -13,8 +13,8 @@ const basic = {
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)`,
 };
 
-export const light = {
-  ...basic,
+export const basic = {
+  ...common,
   mainTextColor: '#000000',
   secondaryTextColor: '#ffffff',
   mainBackgroundColor: '#cccccc',
@@ -23,7 +23,7 @@ export const light = {
 };
 
 export const dark = {
-  ...basic,
+  ...common,
   mainTextColor: '#ffffff',
   secondaryTextColor: '#000000',
   mainBackgroundColor: '#282c34',

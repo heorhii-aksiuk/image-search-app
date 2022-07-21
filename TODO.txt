@@ -1,4 +1,7 @@
-Add basic theme
-Add night theme
-Add button to switch themes
+DONE! Add basic theme
+DONE! Add night theme
+DONE! Add button to switch themes
+
+Fix search svg in dark theme
+Save theme in localStorage
 Add logo to header

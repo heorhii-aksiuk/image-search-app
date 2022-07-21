@@ -2,18 +2,6 @@ import styled from 'styled-components';
 import { ReactComponent as Sun } from '../../icons/sun.svg';
 import { ReactComponent as Moon } from '../../icons/moon.svg';
 
-export const SunIcon = styled(Sun)`
-  color: ${(props) => props.theme.secondaryBackgroundColor};
-  height: 100%;
-  width: 100%;
-`;
-
-export const MoonIcon = styled(Moon)`
-  color: ${(props) => props.theme.secondaryBackgroundColor};
-  height: 100%;
-  width: 100%;
-`;
-
 export const Container = styled.div`
   position: relative;
   width: 28px;
@@ -41,4 +29,16 @@ export const Toggle = styled.input`
   height: 0;
   width: 0;
   pointer-events: none;
+`;
+
+export const SunIcon = styled(Sun)`
+  height: 100%;
+  width: 100%;
+  color: ${(props) => props.theme.secondaryBackgroundColor};
+`;
+
+export const MoonIcon = styled(Moon)`
+  height: 100%;
+  width: 100%;
+  color: ${(props) => props.theme.secondaryBackgroundColor};
 `;

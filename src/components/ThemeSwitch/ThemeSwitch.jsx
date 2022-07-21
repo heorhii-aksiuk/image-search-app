@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useEffect, useId } from 'react';
 import { useToggle } from '../../hooks';
 import {
   Container,
@@ -7,7 +7,6 @@ import {
   SunIcon,
   MoonIcon,
 } from './ThemeSwitch.styled';
-import { useEffect } from 'react';
 
 export default function ThemeSwitch({ onSwitchTheme }) {
   const [theme, toggleTheme] = useToggle();
