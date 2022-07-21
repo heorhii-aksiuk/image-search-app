@@ -9,8 +9,8 @@ export const Header = styled.header`
   justify-content: center;
   align-items: center;
   min-height: 64px;
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: 20px;
+  padding-left: 20px;
   padding-top: 12px;
   padding-bottom: 12px;
   color: ${(props) => props.theme.mainTextColor};

@@ -1,37 +1,33 @@
-import { ReactComponent as SunIcon } from '../../icons/sun.svg';
-import { ReactComponent as MoonIcon } from '../../icons/moon.svg';
+import { useId } from 'react';
+import { useToggle } from '../../hooks';
 import {
   Container,
-  Icon,
-  Control,
   Toggle,
-  Track,
-  Marker,
+  Label,
+  SunIcon,
+  MoonIcon,
 } from './ThemeSwitch.styled';
+import { useEffect } from 'react';
 
-export default function ThemeSwitch() {
+export default function ThemeSwitch({ onSwitchTheme }) {
+  const [theme, toggleTheme] = useToggle();
+  const id = useId();
+
+  useEffect(() => {
+    onSwitchTheme(theme);
+  }, [onSwitchTheme, theme]);
+
   return (
     <Container>
-      <Icon>
-        <SunIcon />
-      </Icon>
-      <Control>
-        <Toggle
-          type="checkbox"
-          name="theme"
-          id="theme-switch-toggle"
-          aria-label="Theme switch"
-        />
-        <Track
-          aria-hidden="true"
-          class="theme-switch__track"
-          for="theme-switch-toggle"
-        ></Track>
-        <Marker aria-hidden="true" class="theme-switch__marker"></Marker>
-      </Control>
-      <Icon>
-        <MoonIcon />
-      </Icon>
+      <Toggle
+        onChange={() => toggleTheme()}
+        type="checkbox"
+        id={id}
+        aria-label="Theme switch"
+        checked={theme}
+      />
+      <Label aria-hidden="true" htmlFor={id} title="Theme switch"></Label>
+      {theme ? <MoonIcon /> : <SunIcon />}
     </Container>
   );
 }

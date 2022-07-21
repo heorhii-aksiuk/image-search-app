@@ -7,7 +7,7 @@ import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
 import GlobalStyle from './styles';
-import { dark } from './theme';
+import { light, dark } from './theme';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
@@ -22,6 +22,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
   const totalPages = useRef(0);
   const toastID = useRef(null);
 
@@ -70,10 +71,14 @@ export default function App() {
 
   return (
     <>
-      <ThemeProvider theme={dark}>
+      <ThemeProvider theme={darkTheme ? dark : light}>
         <GlobalStyle />
         <AppContainer>
-          <SearchBar onSubmit={(query) => setQuery(query)} />
+          <SearchBar
+            onSubmit={(query) => setQuery(query)}
+            onSwitchTheme={(theme) => setDarkTheme(theme)}
+          />
+
           {hasData && <ImageGallery items={data} />}
           {hasNextPage && (
             <Button onClick={loadMore} disabled={loading}>

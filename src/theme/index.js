@@ -2,6 +2,8 @@ const basic = {
   accentColor: '#3f51b5',
   buttonHoverColor: '#303f9f',
   buttonActiveColor: '#1c2769',
+  markerColor: '#cccccc',
+  trackColor: '#cccccc',
   transition: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
   appBarBoxShadow: `0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)`,
@@ -17,6 +19,7 @@ export const light = {
   secondaryTextColor: '#ffffff',
   mainBackgroundColor: '#cccccc',
   secondaryBackgroundColor: '#ffffff',
+  trackColor: '#cccccc',
 };
 
 export const dark = {
@@ -25,4 +28,5 @@ export const dark = {
   secondaryTextColor: '#000000',
   mainBackgroundColor: '#282c34',
   secondaryBackgroundColor: '#000000',
+  trackColor: '#282c34',
 };
