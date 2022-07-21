@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ReactComponent as SearchIcon } from '../../icons/search.svg';
-import { Header, Form, Button, Input } from './SearchBar.styled';
+import ThemeSwitch from '../ThemeSwitch';
+import { Header, Form, Button, Input, SearchIcon } from './SearchBar.styled';
 
 const EMPTY_STRING = '';
 
@@ -10,7 +10,7 @@ const INPUT = {
   EMPTY_MESSAGE: 'Field can not be empty!',
 };
 
-export default function SearchBar({ onSubmit }) {
+export default function SearchBar({ onSubmit, onSwitchTheme }) {
   const [value, setValue] = useState(EMPTY_STRING);
 
   const handleSubmit = (event) => {
@@ -30,7 +30,7 @@ export default function SearchBar({ onSubmit }) {
     <Header>
       <Form onSubmit={handleSubmit}>
         <Button type="submit">
-          <SearchIcon width={24} height={24} />
+          <SearchIcon />
         </Button>
         <Input
           onChange={(event) => setValue(event.target.value)}
@@ -40,6 +40,7 @@ export default function SearchBar({ onSubmit }) {
           placeholder={INPUT.PLACEHOLDER}
         />
       </Form>
+      <ThemeSwitch onSwitchTheme={onSwitchTheme} />
     </Header>
   );
 }

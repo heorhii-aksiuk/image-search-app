@@ -5,26 +5,27 @@ const Button = styled.button`
   margin: 0 auto;
   padding: 8px 16px;
   min-width: 180px;
-  border-radius: 2px;
-  background-color: #3f51b5;
-  text-align: center;
-  color: #ffffff;
-  border: none;
+
   font-size: 18px;
   line-height: 24px;
   font-weight: 500;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  color: ${(props) => props.theme.secondaryTextColor};
+  
+  background-color: ${(props) => props.theme.accentColor};
+  border: none;
+  border-radius: 2px;
+  box-shadow: ${(props) => props.theme.buttonBoxShadow};
   cursor: pointer;
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: ${(props) => props.theme.transition};
 
   :hover,
   :focus {
-    background-color: #303f9f;
+    background-color: ${(props) => props.theme.buttonHoverColor};
   }
 
   :active {
-    background-color: #1c2769;
+    background-color: ${(props) => props.theme.buttonActiveColor};
   }
 `;
 

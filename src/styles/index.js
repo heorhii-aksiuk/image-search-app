@@ -36,7 +36,8 @@ a {
 }
 
 body {
-  background-color: #cccccc;
+  background-color: ${(props) => props.theme.mainBackgroundColor};
+  transition: ${(props) => props.theme.transition};
 }
 
 html {
