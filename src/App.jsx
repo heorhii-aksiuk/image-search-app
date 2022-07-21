@@ -87,7 +87,11 @@ export default function App() {
           )}
         </AppContainer>
         {loading && <Loader />}
-        <ToastContainer autoClose={2500} limit={1} />
+        <ToastContainer
+          theme={theme ? 'dark' : 'light'}
+          autoClose={2500}
+          limit={3}
+        />
       </ThemeProvider>
     </>
   );
