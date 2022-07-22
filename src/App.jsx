@@ -3,12 +3,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { apiService } from './services';
 import { useLocalStorage } from './hooks';
+import { light, dark } from './theme';
 import SearchBar from './components/SearchBar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
 import GlobalStyle from './styles';
-import { basic, dark } from './theme';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
@@ -17,13 +17,27 @@ const MESSAGE = {
   ERROR: 'Oops, something went wrong :( Please, reset page or try later',
   NOTHING_FOUND: 'Nothing found on your request :(',
 };
+const THEME = {
+  LIGHT: 'light',
+  DARK: 'dark',
+};
+
+const INITIAL = {
+  QUERY: null,
+  THEME: THEME.LIGHT,
+};
+
+const LS_KEY = {
+  QUERY: 'query',
+  THEME: 'theme',
+};
 
 export default function App() {
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useLocalStorage(LS_KEY.QUERY, INITIAL.QUERY);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useLocalStorage('theme');
+  const [theme, setTheme] = useLocalStorage(LS_KEY.THEME, INITIAL.THEME);
   const totalPages = useRef(0);
   const toastID = useRef(null);
 
@@ -66,20 +80,24 @@ export default function App() {
 
   const loadMore = () => setPage((page) => page + 1);
 
+  const handleSwitchTheme = (themeBool) => {
+    setTheme(themeBool ? THEME.DARK : THEME.LIGHT);
+  };
+
   const hasData = data?.length > 0;
   const hasNextPage = totalPages.current > page;
+  const themeBool = theme === THEME.DARK;
 
   return (
     <>
-      <ThemeProvider theme={theme ? dark : basic}>
+      <ThemeProvider theme={themeBool ? dark : light}>
         <GlobalStyle />
         <AppContainer>
           <SearchBar
             onSubmit={handleSubmit}
-            onSwitchTheme={(theme) => setTheme(theme)}
-            theme={theme}
+            onSwitchTheme={handleSwitchTheme}
+            themeBool={themeBool}
           />
-
           {hasData && <ImageGallery items={data} />}
           {hasNextPage && (
             <Button onClick={loadMore} disabled={loading}>
@@ -88,11 +106,7 @@ export default function App() {
           )}
         </AppContainer>
         {loading && <Loader />}
-        <ToastContainer
-          theme={theme ? 'dark' : 'light'}
-          autoClose={2500}
-          limit={3}
-        />
+        <ToastContainer theme={theme} autoClose={2500} limit={3} />
       </ThemeProvider>
     </>
   );
