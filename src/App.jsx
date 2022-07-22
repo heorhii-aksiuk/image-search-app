@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
-import { apiRequest } from './services';
+import { apiService } from './services';
+import { useLocalStorage } from './hooks';
 import SearchBar from './components/SearchBar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
@@ -22,24 +23,17 @@ export default function App() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useLocalStorage('theme');
   const totalPages = useRef(0);
   const toastID = useRef(null);
 
   useEffect(() => {
     if (!query) return;
-    setPage(FIRST_PAGE);
-  }, [query]);
-
-  useEffect(() => {
-    if (!query) return;
-    // TODO: fix bug with render not first page when we have a new query
-
     setLoading(true);
 
     (async function () {
       try {
-        const response = await apiRequest(query, PER_PAGE, page);
+        const response = await apiService(query, PER_PAGE, page);
         const data = response?.data?.hits;
 
         if (data?.length < 1 && !toast.isActive(toastID.current)) {
@@ -65,6 +59,11 @@ export default function App() {
     })();
   }, [page, query]);
 
+  const handleSubmit = (newQuery) => {
+    setQuery(newQuery);
+    setPage(FIRST_PAGE);
+  };
+
   const loadMore = () => setPage((page) => page + 1);
 
   const hasData = data?.length > 0;
@@ -76,8 +75,9 @@ export default function App() {
         <GlobalStyle />
         <AppContainer>
           <SearchBar
-            onSubmit={(query) => setQuery(query)}
+            onSubmit={handleSubmit}
             onSwitchTheme={(theme) => setTheme(theme)}
+            theme={theme}
           />
 
           {hasData && <ImageGallery items={data} />}

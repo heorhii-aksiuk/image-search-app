@@ -8,8 +8,8 @@ import {
   MoonIcon,
 } from './ThemeSwitch.styled';
 
-export default function ThemeSwitch({ onSwitchTheme }) {
-  const [theme, toggleTheme] = useToggle();
+export default function ThemeSwitch({ onSwitchTheme, theme: savedTheme }) {
+  const [theme, toggleTheme] = useToggle(savedTheme);
   const id = useId();
 
   useEffect(() => {

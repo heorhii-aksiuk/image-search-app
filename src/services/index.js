@@ -1,1 +1,1 @@
-export { default as apiRequest } from './apiRequest';
+export { default as apiService } from './apiService';

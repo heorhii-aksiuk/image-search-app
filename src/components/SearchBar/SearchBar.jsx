@@ -10,7 +10,7 @@ const INPUT = {
   EMPTY_MESSAGE: 'Field can not be empty!',
 };
 
-export default function SearchBar({ onSubmit, onSwitchTheme }) {
+export default function SearchBar({ onSubmit, onSwitchTheme, theme }) {
   const [value, setValue] = useState(EMPTY_STRING);
 
   const handleSubmit = (event) => {
@@ -40,7 +40,7 @@ export default function SearchBar({ onSubmit, onSwitchTheme }) {
           placeholder={INPUT.PLACEHOLDER}
         />
       </Form>
-      <ThemeSwitch onSwitchTheme={onSwitchTheme} />
+      <ThemeSwitch onSwitchTheme={onSwitchTheme} theme={theme} />
     </Header>
   );
 }
