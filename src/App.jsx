@@ -20,24 +20,15 @@ const MESSAGE = {
 const THEME = {
   LIGHT: 'light',
   DARK: 'dark',
-};
-
-const INITIAL = {
-  QUERY: null,
-  THEME: THEME.LIGHT,
-};
-
-const LS_KEY = {
-  QUERY: 'query',
-  THEME: 'theme',
+  LS_KEY: 'theme',
 };
 
 export default function App() {
-  const [query, setQuery] = useLocalStorage(LS_KEY.QUERY, INITIAL.QUERY);
+  const [query, setQuery] = useState(null);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useLocalStorage(LS_KEY.THEME, INITIAL.THEME);
+  const [theme, setTheme] = useLocalStorage(THEME.LS_KEY, THEME.LIGHT);
   const totalPages = useRef(0);
   const toastID = useRef(null);
 
