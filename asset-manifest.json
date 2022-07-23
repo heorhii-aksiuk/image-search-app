@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/image-search-app/static/css/main.6237bdd5.css",
-    "main.js": "/image-search-app/static/js/main.71c63d28.js",
+    "main.js": "/image-search-app/static/js/main.148d349a.js",
     "index.html": "/image-search-app/index.html",
     "static/media/sun.svg": "/image-search-app/static/media/sun.5c6d370239b34b7d2815c4aa6f1445fa.svg",
     "static/media/search.svg": "/image-search-app/static/media/search.1addadbf15ddb6bcfc376071127af072.svg",
     "static/media/moon.svg": "/image-search-app/static/media/moon.9dcb45873d3a84029f555e92f365e768.svg",
     "main.6237bdd5.css.map": "/image-search-app/static/css/main.6237bdd5.css.map",
-    "main.71c63d28.js.map": "/image-search-app/static/js/main.71c63d28.js.map"
+    "main.148d349a.js.map": "/image-search-app/static/js/main.148d349a.js.map"
   },
   "entrypoints": [
     "static/css/main.6237bdd5.css",
-    "static/js/main.71c63d28.js"
+    "static/js/main.148d349a.js"
   ]
 }
