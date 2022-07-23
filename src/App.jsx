@@ -8,7 +8,7 @@ import SearchBar from './components/SearchBar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
-import GlobalStyle from './styles';
+import { GlobalStyle } from './styles';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
@@ -72,7 +72,8 @@ export default function App() {
   const loadMore = () => setPage((page) => page + 1);
 
   const handleSwitchTheme = (themeBool) => {
-    setTheme(themeBool ? THEME.DARK : THEME.LIGHT);
+    const theme = themeBool ? THEME.DARK : THEME.LIGHT;
+    setTheme(theme);
   };
 
   const hasData = data?.length > 0;

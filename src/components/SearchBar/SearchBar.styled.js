@@ -9,7 +9,7 @@ export const Header = styled.header`
   justify-content: center;
   align-items: center;
   padding: 12px 20px;
-  min-height: 64px;
+  height: 72px;
   z-index: 1100;
   color: ${(props) => props.theme.mainTextColor};
   background-color: ${(props) => props.theme.accentColor};
