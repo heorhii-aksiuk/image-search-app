@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
-import { apiRequest } from './services';
+import { apiService } from './services';
+import { useLocalStorage } from './hooks';
+import { light, dark } from './theme';
 import SearchBar from './components/SearchBar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import Loader from './components/Loader';
 import GlobalStyle from './styles';
-import { basic, dark } from './theme';
 import { AppContainer } from './App.styled';
 
 const FIRST_PAGE = 1;
@@ -16,30 +17,28 @@ const MESSAGE = {
   ERROR: 'Oops, something went wrong :( Please, reset page or try later',
   NOTHING_FOUND: 'Nothing found on your request :(',
 };
+const THEME = {
+  LIGHT: 'light',
+  DARK: 'dark',
+  LS_KEY: 'theme',
+};
 
 export default function App() {
   const [query, setQuery] = useState(null);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useLocalStorage(THEME.LS_KEY, THEME.LIGHT);
   const totalPages = useRef(0);
   const toastID = useRef(null);
 
   useEffect(() => {
     if (!query) return;
-    setPage(FIRST_PAGE);
-  }, [query]);
-
-  useEffect(() => {
-    if (!query) return;
-    // TODO: fix bug with render not first page when we have a new query
-
     setLoading(true);
 
     (async function () {
       try {
-        const response = await apiRequest(query, PER_PAGE, page);
+        const response = await apiService(query, PER_PAGE, page);
         const data = response?.data?.hits;
 
         if (data?.length < 1 && !toast.isActive(toastID.current)) {
@@ -65,21 +64,31 @@ export default function App() {
     })();
   }, [page, query]);
 
+  const handleSubmit = (newQuery) => {
+    setQuery(newQuery);
+    setPage(FIRST_PAGE);
+  };
+
   const loadMore = () => setPage((page) => page + 1);
+
+  const handleSwitchTheme = (themeBool) => {
+    setTheme(themeBool ? THEME.DARK : THEME.LIGHT);
+  };
 
   const hasData = data?.length > 0;
   const hasNextPage = totalPages.current > page;
+  const themeBool = theme === THEME.DARK;
 
   return (
     <>
-      <ThemeProvider theme={theme ? dark : basic}>
+      <ThemeProvider theme={themeBool ? dark : light}>
         <GlobalStyle />
         <AppContainer>
           <SearchBar
-            onSubmit={(query) => setQuery(query)}
-            onSwitchTheme={(theme) => setTheme(theme)}
+            onSubmit={handleSubmit}
+            onSwitchTheme={handleSwitchTheme}
+            themeBool={themeBool}
           />
-
           {hasData && <ImageGallery items={data} />}
           {hasNextPage && (
             <Button onClick={loadMore} disabled={loading}>
@@ -88,11 +97,7 @@ export default function App() {
           )}
         </AppContainer>
         {loading && <Loader />}
-        <ToastContainer
-          theme={theme ? 'dark' : 'light'}
-          autoClose={2500}
-          limit={3}
-        />
+        <ToastContainer theme={theme} autoClose={2500} limit={3} />
       </ThemeProvider>
     </>
   );

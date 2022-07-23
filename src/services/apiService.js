@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://pixabay.com/api';
 const API_KEY = process.env.REACT_APP_PIXABAY_API_KEY;
 
-const apiRequest = async (query, perPage, page) => {
+const apiService = async (query, perPage, page) => {
   const searchParams = new URLSearchParams({
     q: query,
     page: page,
@@ -18,4 +18,4 @@ const apiRequest = async (query, perPage, page) => {
   return response;
 };
 
-export default apiRequest;
+export default apiService;

@@ -8,13 +8,16 @@ import {
   MoonIcon,
 } from './ThemeSwitch.styled';
 
-export default function ThemeSwitch({ onSwitchTheme }) {
-  const [theme, toggleTheme] = useToggle();
+export default function ThemeSwitch({
+  onSwitchTheme,
+  themeBool: initialThemeBool,
+}) {
+  const [themeBool, toggleTheme] = useToggle(initialThemeBool);
   const id = useId();
 
   useEffect(() => {
-    onSwitchTheme(theme);
-  }, [onSwitchTheme, theme]);
+    onSwitchTheme(themeBool);
+  }, [onSwitchTheme, themeBool]);
 
   return (
     <Container>
@@ -23,10 +26,10 @@ export default function ThemeSwitch({ onSwitchTheme }) {
         type="checkbox"
         id={id}
         aria-label="Theme switch"
-        checked={theme}
+        checked={themeBool}
       />
       <Label aria-hidden="true" htmlFor={id} title="Theme switch"></Label>
-      {theme ? <MoonIcon /> : <SunIcon />}
+      {themeBool ? <MoonIcon /> : <SunIcon />}
     </Container>
   );
 }
