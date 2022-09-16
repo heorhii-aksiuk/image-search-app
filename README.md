@@ -1,8 +1,32 @@
 # Image Search App
+
 Portfolio project. React
 
+App link: [https://heorhii-aksiuk.github.io/image-search-app/]
 
-<img align="left" alt="JavaScript" width="32px" title ="JavaScript ES6+" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />
+Technologies:
 
-<img  alt="React" width="32px" title ="React"  src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
+- React(v18)(Hooks),
+- JavaScript(ES62022/ES12),
+- JSX(HTML5),
+- CSS-in-JS(Styled Components)(CSS3),
+- REST API(Axios)
+- ...and React Toastify, React Loader Spinner, sanitize.css
 
+Extra: RWD, Semantic, A11y
+
+Backend: Pixabay API
+
+Hosting: GitHub Pages
+
+Features:
+
+- Основная функция приложения - поиск изображений по ключевому слову
+  (используется форма для запроса с кнопкой, которая принимает значение от
+  пользователя и по нем осуществляется запрос на сторонний бэкенд Pixabay API
+  [https://pixabay.com/api/docs/] в случае успешного и не пустого ответа от
+  которого отображаются 12 картинок в интерфейсе)
+- Увеличение выбранной картинки на весь экран кликом/тапом (используется
+  модальное окно и React-порталы )
+- Закрытие модального окна по Esc, клик/тап вне картинки, двойной клик/тап по
+  картинке (используется Browser Api)
