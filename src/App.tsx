@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { apiService } from './services';
@@ -23,14 +23,14 @@ const THEME = {
   LS_KEY: 'theme',
 };
 
-export default function App() {
-  const [query, setQuery] = useState(null);
-  const [data, setData] = useState([]);
+const App = () => {
+  const [query, setQuery] = useState<string | null>(null);
+  const [data, setData] = useState<any[]>([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useLocalStorage(THEME.LS_KEY, THEME.LIGHT);
   const totalPages = useRef(0);
-  const toastID = useRef(null);
+  const toastID = useRef<any>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -57,21 +57,21 @@ export default function App() {
         }
       } catch (error) {
         toast.error(MESSAGE.ERROR);
-        console.error(error.message);
+        console.error((error as Error).message);
       } finally {
         setLoading(false);
       }
     })();
   }, [page, query]);
 
-  const handleSubmit = (newQuery) => {
+  const handleSubmit = (newQuery: string) => {
     setQuery(newQuery);
     setPage(FIRST_PAGE);
   };
 
   const loadMore = () => setPage((page) => page + 1);
 
-  const handleSwitchTheme = (themeBool) => {
+  const handleSwitchTheme = (themeBool: boolean) => {
     const theme = themeBool ? THEME.DARK : THEME.LIGHT;
     setTheme(theme);
   };
@@ -102,4 +102,6 @@ export default function App() {
       </ThemeProvider>
     </>
   );
-}
+};
+
+export default App;
