@@ -1,7 +1,11 @@
 import ImageGalleryItem from '../ImageGalleryItem';
 import { List } from './ImageGallery.styled';
 
-export default function ImageGallery({ items }) {
+type Props = {
+  items: any[];
+};
+
+function ImageGallery({ items }: Props) {
   return (
     <List>
       {items.map((item) => (
@@ -10,3 +14,5 @@ export default function ImageGallery({ items }) {
     </List>
   );
 }
+
+export default ImageGallery;

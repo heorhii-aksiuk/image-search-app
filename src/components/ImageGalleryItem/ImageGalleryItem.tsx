@@ -2,9 +2,18 @@ import { useToggle } from '../../hooks';
 import Modal from '../Modal';
 import { Item, Image } from './ImageGalleryItem.styled';
 
-export default function ImageGalleryItem({
+type Props = {
+  item: {
+    // TODO: rename
+    webformatURL: string;
+    largeImageURL: string;
+    tags: string;
+  };
+};
+
+function ImageGalleryItem({
   item: { webformatURL, largeImageURL, tags },
-}) {
+}: Props) {
   const [showModal, toggleModal] = useToggle();
 
   return (
@@ -20,3 +29,5 @@ export default function ImageGalleryItem({
     </>
   );
 }
+
+export default ImageGalleryItem;

@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { API_KEY } from '../constants';
 
 axios.defaults.baseURL = 'https://pixabay.com/api';
-const API_KEY = process.env.REACT_APP_PIXABAY_API_KEY as string;
 
 const apiService = async (query: string, perPage: number, page: number) => {
   const params = {

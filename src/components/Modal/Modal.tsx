@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, Box } from './Modal.styled';
 
@@ -7,11 +7,16 @@ const CLOSE_INFO = {
   BOX: 'Double click to close',
 };
 
-const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 
-export default function Modal({ onClose, children }) {
+type Props = {
+  onClose(): void;
+  children: ReactNode;
+};
+
+export default function Modal({ onClose, children }: Props) {
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
@@ -26,7 +31,7 @@ export default function Modal({ onClose, children }) {
     };
   }, [onClose]);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
