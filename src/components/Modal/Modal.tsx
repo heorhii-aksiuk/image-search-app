@@ -2,11 +2,6 @@ import { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, Box } from './Modal.styled';
 
-const CLOSE_INFO = {
-  OVERLAY: 'Click to close',
-  BOX: 'Double click to close',
-};
-
 const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 
 type Props = {
@@ -38,8 +33,8 @@ export default function Modal({ onClose, children }: Props) {
   };
 
   return createPortal(
-    <Overlay onClick={handleClick} title={CLOSE_INFO.OVERLAY}>
-      <Box onDoubleClick={onClose} title={CLOSE_INFO.BOX}>
+    <Overlay onClick={handleClick} title="Click to close">
+      <Box onDoubleClick={onClose} title="Double click to close">
         {children}
       </Box>
     </Overlay>,

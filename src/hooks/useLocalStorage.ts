@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { LS_ERROR_MESSAGE } from '../constants';
 
-const useLocalStorage = (key: string, defaultValue: string) => {
+function useLocalStorage(key: string, defaultValue: string) {
   const rawStorageData = window.localStorage.getItem(key);
 
   const getParsedStorageData = () => {
@@ -8,7 +9,7 @@ const useLocalStorage = (key: string, defaultValue: string) => {
       try {
         return JSON.parse(rawStorageData);
       } catch (error) {
-        console.error(`localStorage parse error, key: ${key}`);
+        console.error(LS_ERROR_MESSAGE(key));
         window.localStorage.setItem(key, JSON.stringify(null));
         return defaultValue;
       }
@@ -23,6 +24,6 @@ const useLocalStorage = (key: string, defaultValue: string) => {
   }, [key, state]);
 
   return [state, setState];
-};
+}
 
 export default useLocalStorage;

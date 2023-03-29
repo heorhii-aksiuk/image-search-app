@@ -2,13 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import ThemeSwitch from '../ThemeSwitch';
 import { Header, Form, Button, Input, SearchIcon } from './SearchBar.styled';
-
-const EMPTY_STRING = '';
-
-const INPUT = {
-  PLACEHOLDER: 'Search images and photos',
-  EMPTY_MESSAGE: 'Field can not be empty!',
-};
+import { EMPTY_MESSAGE, INPUT_PLACEHOLDER } from '../../constants';
 
 type Props = {
   onSubmit(query: string): void;
@@ -17,19 +11,19 @@ type Props = {
 };
 
 function SearchBar({ onSubmit, onSwitchTheme, themeBool }: Props) {
-  const [value, setValue] = useState(EMPTY_STRING);
+  const [value, setValue] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const normalizedValue = value.trim().toLowerCase();
 
-    if (normalizedValue === EMPTY_STRING) {
-      toast.error(INPUT.EMPTY_MESSAGE);
+    if (normalizedValue === '') {
+      toast.error(EMPTY_MESSAGE);
       return;
     }
     onSubmit(normalizedValue);
-    setValue(EMPTY_STRING);
+    setValue('');
   };
 
   return (
@@ -43,7 +37,7 @@ function SearchBar({ onSubmit, onSwitchTheme, themeBool }: Props) {
           value={value}
           type="search"
           autoComplete="off"
-          placeholder={INPUT.PLACEHOLDER}
+          placeholder={INPUT_PLACEHOLDER}
         />
       </Form>
       <ThemeSwitch onSwitchTheme={onSwitchTheme} themeBool={themeBool} />

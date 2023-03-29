@@ -16,23 +16,26 @@ import {
   THEME,
   ERROR_MESSAGE,
   NOTHING_FOUND_MESSAGE,
+  LOADING,
+  LOAD_MORE,
 } from './constants';
 
 function App() {
   const [query, setQuery] = useState<string | null>(null);
   //TODO: type data
   const [data, setData] = useState<any[]>([]);
-  const [page, setPage] = useState(FIRST_PAGE);
+  const [page, setPage] = useState<number>(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useLocalStorage(THEME.LS_KEY, THEME.LIGHT);
   const totalPages = useRef(0);
   const toastID = useRef<any>(null);
 
+  //TODO: move in separate file?
   useEffect(() => {
     if (!query) return;
     setLoading(true);
 
-    (async function () {
+    (async () => {
       try {
         const response = await apiService(query, PER_PAGE, page);
         const data = response?.data?.hits;
@@ -90,7 +93,7 @@ function App() {
           {hasData && <ImageGallery items={data} />}
           {hasNextPage && (
             <Button onClick={loadMore} disabled={loading}>
-              {loading ? 'Loading...' : 'Load more'}
+              {loading ? LOADING : LOAD_MORE}
             </Button>
           )}
         </AppContainer>

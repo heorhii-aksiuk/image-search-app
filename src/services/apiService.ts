@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { API_KEY } from '../constants';
+import { API_KEY, API_BASE_URL } from '../constants';
 
-axios.defaults.baseURL = 'https://pixabay.com/api';
+axios.defaults.baseURL = API_BASE_URL;
 
-const apiService = async (query: string, perPage: number, page: number) => {
+async function apiService(query: string, perPage: number, page: number) {
   const params = {
     q: query,
     page: page.toString(),
@@ -13,10 +13,9 @@ const apiService = async (query: string, perPage: number, page: number) => {
     key: API_KEY,
   };
   const searchParams = new URLSearchParams(params);
-
   const requestString = '/?' + searchParams;
   const response = await axios.get(requestString);
   return response;
-};
+}
 
 export default apiService;
