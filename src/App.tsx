@@ -10,21 +10,17 @@ import Button from './components/Button';
 import Loader from './components/Loader';
 import { GlobalStyle } from './styles';
 import { AppContainer } from './App.styled';
+import {
+  FIRST_PAGE,
+  PER_PAGE,
+  THEME,
+  ERROR_MESSAGE,
+  NOTHING_FOUND_MESSAGE,
+} from './constants';
 
-const FIRST_PAGE = 1;
-const PER_PAGE = 12;
-const MESSAGE = {
-  ERROR: 'Oops, something went wrong :( Please, reset page or try later',
-  NOTHING_FOUND: 'Nothing found on your request :(',
-};
-const THEME = {
-  LIGHT: 'light',
-  DARK: 'dark',
-  LS_KEY: 'theme',
-};
-
-const App = () => {
+function App() {
   const [query, setQuery] = useState<string | null>(null);
+  //TODO: type data
   const [data, setData] = useState<any[]>([]);
   const [page, setPage] = useState(FIRST_PAGE);
   const [loading, setLoading] = useState(false);
@@ -43,7 +39,7 @@ const App = () => {
 
         if (data?.length < 1 && !toast.isActive(toastID.current)) {
           //Prevent toast duplicate(from docs) when changing query and page, but nothing was found
-          toastID.current = toast.info(MESSAGE.NOTHING_FOUND);
+          toastID.current = toast.info(NOTHING_FOUND_MESSAGE);
         }
 
         if (page > FIRST_PAGE) {
@@ -56,7 +52,7 @@ const App = () => {
           totalPages.current = Math.ceil(totalHits / PER_PAGE);
         }
       } catch (error) {
-        toast.error(MESSAGE.ERROR);
+        toast.error(ERROR_MESSAGE);
         console.error((error as Error).message);
       } finally {
         setLoading(false);
@@ -78,6 +74,7 @@ const App = () => {
 
   const hasData = data?.length > 0;
   const hasNextPage = totalPages.current > page;
+  // TODO: enum?
   const themeBool = theme === THEME.DARK;
 
   return (
@@ -102,6 +99,6 @@ const App = () => {
       </ThemeProvider>
     </>
   );
-};
+}
 
 export default App;

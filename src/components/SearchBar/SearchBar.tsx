@@ -10,10 +10,16 @@ const INPUT = {
   EMPTY_MESSAGE: 'Field can not be empty!',
 };
 
-export default function SearchBar({ onSubmit, onSwitchTheme, themeBool }) {
+type Props = {
+  onSubmit(query: string): void;
+  onSwitchTheme(themeBool: boolean): void;
+  themeBool: boolean;
+};
+
+function SearchBar({ onSubmit, onSwitchTheme, themeBool }: Props) {
   const [value, setValue] = useState(EMPTY_STRING);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const normalizedValue = value.trim().toLowerCase();
@@ -36,7 +42,7 @@ export default function SearchBar({ onSubmit, onSwitchTheme, themeBool }) {
           onChange={(event) => setValue(event.target.value)}
           value={value}
           type="search"
-          autocomplete="off"
+          autoComplete="off"
           placeholder={INPUT.PLACEHOLDER}
         />
       </Form>
@@ -44,3 +50,5 @@ export default function SearchBar({ onSubmit, onSwitchTheme, themeBool }) {
     </Header>
   );
 }
+
+export default SearchBar;

@@ -3,7 +3,7 @@ import { Oval } from 'react-loader-spinner';
 import { useTheme } from 'styled-components';
 import { Overlay } from './Loader.styled';
 
-const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 
 export default function Loader() {
   const theme = useTheme();

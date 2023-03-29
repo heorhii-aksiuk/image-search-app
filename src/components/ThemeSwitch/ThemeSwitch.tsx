@@ -8,10 +8,12 @@ import {
   MoonIcon,
 } from './ThemeSwitch.styled';
 
-export default function ThemeSwitch({
-  onSwitchTheme,
-  themeBool: initialThemeBool,
-}) {
+type Props = {
+  onSwitchTheme(themeBool: boolean): void;
+  themeBool: boolean;
+};
+
+function ThemeSwitch({ onSwitchTheme, themeBool: initialThemeBool }: Props) {
   const [themeBool, toggleTheme] = useToggle(initialThemeBool);
   const id = useId();
 
@@ -33,3 +35,5 @@ export default function ThemeSwitch({
     </Container>
   );
 }
+
+export default ThemeSwitch;
